@@ -4,7 +4,7 @@ import { Settings } from "./app.settings.model";
 @Injectable()
 export class AppSettings {
   public settings = new Settings(
-    "12@12", //theme name
+    "QTMS", //theme name
     true, //loadingSpinner
     true, //fixedHeader
     true, //fixedSidenav

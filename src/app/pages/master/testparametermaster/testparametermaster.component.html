@@ -49,7 +49,7 @@
   </div>
 </mat-card> -->
 
-<mat-card class="">
+<mat-card style="height: 100%" class="">
   <div
     fxLayout="row"
     fxLayoutAlign="space-between center"
@@ -183,12 +183,11 @@
           </td>
         </tr>
       </table>
-
-      <mat-paginator
-        [pageSizeOptions]="[10, 25, 100]"
-        aria-label="Select page of users"
-      ></mat-paginator>
     </div>
+    <mat-paginator
+      [pageSizeOptions]="[10, 25, 100]"
+      aria-label="Select page of users"
+    ></mat-paginator>
   </div>
 </mat-card>
 <div

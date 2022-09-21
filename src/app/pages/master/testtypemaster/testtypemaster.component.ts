@@ -5,6 +5,7 @@ import { MatSort } from "@angular/material/sort";
 import { AdddialogComponent } from "../../dialogs/adddialog/adddialog.component";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { DeletedialogComponent } from "../../dialogs/deletedialog/deletedialog.component";
+import { ApiService } from "src/app/services/api.service";
 
 @Component({
   selector: "app-testtypemaster",
@@ -14,39 +15,36 @@ import { DeletedialogComponent } from "../../dialogs/deletedialog/deletedialog.c
 export class TesttypemasterComponent implements OnInit {
   loader = false;
   block = false;
-  displayedColumns: string[] = ["id", "testType", "active", "action"];
+  displayedColumns: string[] = ["testType", "action"];
   dataSource!: MatTableDataSource<any>;
-  arr = [
-    {
-      id: 1,
-      testType: "Bulk",
-      active: true,
-    },
-    {
-      id: 2,
-      testType: "Packaging",
-      active: true,
-    },
-    {
-      id: 3,
-      testType: "Micro",
-      active: true,
-    },
-  ];
+  // arr = [
+  //   {
+  //     id: 1,
+  //     testType: "Bulk",
+  //     active: true,
+  //   },
+  //   {
+  //     id: 2,
+  //     testType: "Packaging",
+  //     active: true,
+  //   },
+  //   {
+  //     id: 3,
+  //     testType: "Micro",
+  //     active: true,
+  //   },
+  // ];
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private api: ApiService) {}
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
   @ViewChild(MatSort)
   sort!: MatSort;
 
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource(this.arr);
+    this.getAll();
   }
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
+  ngAfterViewInit() {}
 
   addtype() {
     this.dialog.open(AdddialogComponent, {
@@ -60,7 +58,7 @@ export class TesttypemasterComponent implements OnInit {
     });
   }
   updateData(row) {
-    this.dialog.open(AdddialogComponent, {
+    const box = this.dialog.open(AdddialogComponent, {
       minWidth: "30%",
       // height: '30%',
       data: {
@@ -69,6 +67,11 @@ export class TesttypemasterComponent implements OnInit {
         type: "update",
         data: row,
       },
+    });
+    box.afterClosed().subscribe((result) => {
+      if (result) {
+        this.getAll();
+      }
     });
   }
 
@@ -89,7 +92,21 @@ export class TesttypemasterComponent implements OnInit {
       }
     });
   }
-
+  getAll() {
+    this.loader = true;
+    this.api.getTestType().subscribe({
+      next: (res) => {
+        console.log(res["data"]);
+        this.dataSource = new MatTableDataSource(res["data"]);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.loader = false;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -108,9 +125,5 @@ export class TesttypemasterComponent implements OnInit {
     document.querySelector(`#delete${i}`).classList.remove("hide");
     document.querySelector(`#edit${i}`).classList.remove("hide");
     document.querySelector(`#block${i}`).classList.add("hide");
-  }
-
-  rowcl(r: any) {
-    console.log(r);
   }
 }

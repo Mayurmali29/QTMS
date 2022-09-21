@@ -1,5 +1,7 @@
 import { Component, OnInit, Inject } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { MsalService } from "@azure/msal-angular";
+import { ApiService } from "src/app/services/api.service";
 
 @Component({
   selector: "app-adddialog",
@@ -11,11 +13,18 @@ export class AdddialogComponent implements OnInit {
   loader = false;
   btn = "Save";
   title = "";
+  user;
   placeholder = "";
   constructor(
     public dialogRef: MatDialogRef<AdddialogComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: any
+    @Inject(MAT_DIALOG_DATA) private data: any,
+    private api: ApiService,
+    private auth: MsalService
   ) {
+    this.user = `${
+      this.auth.instance.getAllAccounts()[0].idTokenClaims.given_name
+    } ${this.auth.instance.getAllAccounts()[0].idTokenClaims.family_name}`;
+    console.log(this.user);
     this.type = data?.data?.testType ? data.data.testType : "";
     this.placeholder = data.placeholder;
     if (data.title == "FG Family Master" && data.type == "update") {
@@ -52,7 +61,21 @@ export class AdddialogComponent implements OnInit {
 
     if (this.data.type == "add" && this.data.title == "Test Type Master") {
       console.log(this.type, "Test Type Master");
-      this.dialogRef.close(true);
+      let updateData = {
+        TestType: this.type,
+        UserName: this.user,
+      };
+      console.log(updateData);
+      this.loader = true;
+      this.api.updateTestType(updateData).subscribe({
+        next: (res) => {
+          this.dialogRef.close(true);
+        },
+        error: (err) => {
+          console.log(err);
+          this.loader = false;
+        },
+      });
     }
     if (this.data.type == "update" && this.data.title == "Test Type Master") {
       console.log(this.type, "Test Type Master");

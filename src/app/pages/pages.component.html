@@ -1,64 +1,72 @@
-
-
-
 <div id="main" perfectScrollbar (psScrollY)="onPsScrollY($event)" class="h-100">
+  <header class="header" [class.over]="showInfoContent">
+    <mat-toolbar
+      class="top-toolbar"
+      [class.mat-elevation-z2]="settings.fixedHeader"
+    >
+      <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <a
+            routerLink="/"
+            fxLayout="row"
+            fxLayoutAlign="start center"
+            class="logo"
+            ngClass.xs="mobile"
+            (click)="closeSubMenus()"
+          >
+            <img src="assets/img/logo.png" alt="logo" [@rotate]="showSidenav" />
+            <span class="mx-2">QTMS</span>
+          </a>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start center" class="w-100">
+          <button
+            *ngIf="settings.menu == 'vertical'"
+            mat-icon-button
+            (click)="sidenav.toggle()"
+          >
+            <mat-icon>menu</mat-icon>
+          </button>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="end center">
+          <app-user-menu></app-user-menu>
+        </div>
+      </div>
+    </mat-toolbar>
+  </header>
 
-    <header class="header" [class.over]="showInfoContent">
-        
-        
-        <mat-toolbar class="top-toolbar" [class.mat-elevation-z2]="settings.fixedHeader">
-            <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>           
-                <div fxLayout="row" fxLayoutAlign="center center">               
-                    <a routerLink="/" fxLayout="row" fxLayoutAlign="start center" class="logo" ngClass.xs="mobile" (click)="closeSubMenus()">
-                        <img src="assets/img/logo.png" alt="logo" [@rotate]="showSidenav">
-                        <span class="mx-2">QTMS</span> 
-                    </a>
-                </div> 
-                <div fxLayout="row" fxLayoutAlign="start center" class="w-100"> 
-                    <button *ngIf="settings.menu == 'vertical'" mat-icon-button (click)="sidenav.toggle()">
-                        <mat-icon>menu</mat-icon>
-                    </button> 
-                   
-                                                        
-                </div>          
-                <div fxLayout="row" fxLayoutAlign="end center">
-                    
-                   
-                   
-                    <app-user-menu></app-user-menu>
-                </div>
-            </div>               
-        </mat-toolbar>
-    </header>
+  <mat-drawer-container class="page-wrapper">
+    <mat-drawer
+      #sidenav
+      *ngIf="settings.menu == 'vertical'"
+      [opened]="settings.sidenavIsOpened"
+      [mode]="settings.sidenavIsPinned ? 'side' : 'over'"
+      (openedStart)="showSidenav = !showSidenav"
+      (closedStart)="showSidenav = !showSidenav"
+      class="sidenav mat-elevation-z6"
+      autoFocus="false"
+    >
+      <mat-toolbar *ngIf="settings.fixedSidenav" class="top-toolbar">
+        <a
+          routerLink="/"
+          fxLayout="row"
+          fxLayoutAlign="start center"
+          class="logo"
+        >
+          <img src="assets/img/logo.png" alt="logo" [@rotate]="showSidenav" />
+          <span class="mx-2">QTMS</span>
+        </a>
+      </mat-toolbar>
+      <app-sidenav></app-sidenav>
+    </mat-drawer>
 
-    <mat-drawer-container class="page-wrapper">
+    <mat-drawer-content>
+      <router-outlet></router-outlet>
+    </mat-drawer-content>
+  </mat-drawer-container>
 
-        <mat-drawer #sidenav *ngIf="settings.menu == 'vertical'" [opened]="settings.sidenavIsOpened" [mode]="(settings.sidenavIsPinned) ? 'side' : 'over'" (openedStart)="showSidenav = !showSidenav" (closedStart)="showSidenav = !showSidenav" class="sidenav mat-elevation-z6" autoFocus="false">
-            <mat-toolbar *ngIf="settings.fixedSidenav" class="top-toolbar">
-                <a routerLink="/" fxLayout="row" fxLayoutAlign="start center" class="logo">
-                    <img src="assets/img/logo.png" alt="logo" [@rotate]="showSidenav">
-                    <span class="mx-2">QTMS</span> 
-                </a>
-            </mat-toolbar>            
-            <app-sidenav></app-sidenav>
-        </mat-drawer>
-
-        <mat-drawer-content>
-
-           
-            <router-outlet></router-outlet> 
-
-        </mat-drawer-content>    
-        
-        
-
-    </mat-drawer-container>
-
-    <mat-toolbar color="primary" class="footer" [class.full-width]="!showSidenav">
+  <!-- <mat-toolbar color="primary" class="footer" [class.full-width]="!showSidenav">
         <a mat-raised-button color="accent" href="https://www.zingworks.in/" target="_blank">
             Copyright : Zingworks
         </a>
-    </mat-toolbar>
-   
-
+    </mat-toolbar> -->
 </div>

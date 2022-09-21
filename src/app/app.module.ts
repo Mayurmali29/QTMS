@@ -26,17 +26,28 @@ import { VerticalMenuComponent } from "./theme/components/menu/vertical-menu/ver
 
 import { UserMenuComponent } from "./theme/components/user-menu/user-menu.component";
 
-// firebase
-// import { AngularFireAuthModule } from "@angular/fire/compat/auth";
-// import { AngularFireModule } from "@angular/fire/compat";
-// import { AngularFireAuthGuard } from "@angular/fire/compat/auth-guard";
-// import { environment } from "src/environments/environment";
+/* Changes start here. */
+// Import MSAL and MSAL browser libraries.
+import {
+  MsalGuard,
+  MsalInterceptor,
+  MsalModule,
+  MsalRedirectComponent,
+} from "@azure/msal-angular";
+import { InteractionType, PublicClientApplication } from "@azure/msal-browser";
+
+// Import the Azure AD B2C configuration
+import { msalConfig, protectedResources } from "./auth-config";
+
+// Import the Angular HTTP interceptor.
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+
 import { AdddialogComponent } from "./pages/dialogs/adddialog/adddialog.component";
 import { DeletedialogComponent } from "./pages/dialogs/deletedialog/deletedialog.component";
 
 //material
 import { MatButtonModule } from "@angular/material/button";
-import { TestparametermasterdialogComponent } from './pages/dialogs/testparametermasterdialog/testparametermasterdialog.component';
+import { TestparametermasterdialogComponent } from "./pages/dialogs/testparametermasterdialog/testparametermasterdialog.component";
 
 @NgModule({
   imports: [
@@ -49,6 +60,31 @@ import { TestparametermasterdialogComponent } from './pages/dialogs/testparamete
     PipesModule,
     AppRoutingModule,
     MatButtonModule,
+
+    // azure auth
+    HttpClientModule,
+
+    MsalModule.forRoot(
+      new PublicClientApplication(msalConfig),
+      {
+        // The routing guard configuration.
+        interactionType: InteractionType.Redirect,
+        authRequest: {
+          scopes: protectedResources.todoListApi.scopes,
+        },
+      },
+      {
+        // MSAL interceptor configuration.
+        // The protected resource mapping maps your web API with the corresponding app scopes. If your code needs to call another web API, add the URI mapping here.
+        interactionType: InteractionType.Redirect,
+        protectedResourceMap: new Map([
+          [
+            protectedResources.todoListApi.endpoint,
+            protectedResources.todoListApi.scopes,
+          ],
+        ]),
+      }
+    ),
   ],
   declarations: [
     AppComponent,
@@ -67,7 +103,13 @@ import { TestparametermasterdialogComponent } from './pages/dialogs/testparamete
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
     },
     { provide: OverlayContainer, useClass: CustomOverlayContainer },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: MsalInterceptor,
+      multi: true,
+    },
+    MsalGuard,
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent, MsalRedirectComponent],
 })
 export class AppModule {}
