@@ -1,0 +1,21 @@
+.btnDiv {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 0.5rem ;
+}
+
+mat-form-field.mat-form-field {
+  width: 100%;
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+.inp ::ng-deep .mat-form-field-wrapper {
+  padding: 0;
+}
+
+::ng-deep .mat-dialog-container {
+  padding: 0;
+}

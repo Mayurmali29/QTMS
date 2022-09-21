@@ -1,0 +1,35 @@
+<app-content-header
+  [icon]="'article'"
+  [title]="'FG Test Parameter Master'"
+  [hideBreadcrumb]="false"
+  [hasBgImage]="true"
+  [class]="'pb-4'"
+></app-content-header>
+
+<mat-card>
+  <form>
+    <div>
+      <!-- Select FG Code -->
+      <mat-form-field appearance="outline">
+        <mat-label>Select FG Type</mat-label>
+        <mat-select name="type" (selectionChange)="selectFgType($event.value)">
+          <mat-option *ngFor="let x of arr" [value]="x">
+            {{ x }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Select Test Type</mat-label>
+        <mat-select
+          name="type"
+          (selectionChange)="selectTestType($event.value)"
+        >
+          <mat-option *ngFor="let x of arr" [value]="x">
+            {{ x }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </form>
+</mat-card>

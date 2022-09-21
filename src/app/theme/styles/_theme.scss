@@ -1,0 +1,14 @@
+@use '@angular/material' as mat; 
+@include mat.core();
+
+@import 'theme-reset';
+.app{
+
+
+    &.teal-light{
+        @import "skins/teal-light";
+        @include mat.all-component-colors($teal-light-theme);
+        @include theme-reset($teal-light-theme);
+    
+}
+}

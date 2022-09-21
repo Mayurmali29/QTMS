@@ -1,0 +1,66 @@
+/* width */
+::-webkit-scrollbar {
+  height: 3px;
+  border-radius: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #00796b;
+}
+
+.type {
+  width: 20%;
+  // text-align: center;
+}
+.name {
+  width: 20%;
+}
+.action {
+  width: 20%;
+}
+.criteria {
+  width: 20%;
+}
+.description {
+  width: 30%;
+}
+
+::ng-deep .th.mat-header-cell,
+::ng-deep .td.mat-cell {
+  padding-left: 1rem;
+}
+
+th.mat-header-cell,
+td.mat-cell,
+td.mat-footer-cell {
+  text-align: center;
+}
+
+::ng-deep .mat-sort-header-container {
+  justify-content: center;
+}
+
+.hide {
+  display: none;
+}
+::ng-deep .mat-form-field-wrapper {
+  padding: 0;
+}
+table {
+  width: 100% ;
+}
+
+@media only screen and (max-width: 900px) {
+  table {
+    width: 800px;
+  }
+  .mat-elevation-z8 {
+    overflow-x: scroll;
+  }
+}

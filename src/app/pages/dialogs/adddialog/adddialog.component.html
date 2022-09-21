@@ -1,0 +1,72 @@
+<!-- <div class="dailog" mat-dialog-actions>
+  <mat-form-field appearance="outline">
+    <mat-label>Test Type</mat-label>
+    <input
+      value="{{ type }}"
+      [(ngModel)]="type"
+      matInput
+      placeholder="Test Type"
+    />
+  </mat-form-field>
+
+  <div class="btnDiv">
+    <button
+      mat-raised-button
+      [disabled]="type === ''"
+      color="primary"
+      (click)="onConfirm()"
+    >
+      Save
+    </button>
+    <button mat-raised-button color="warn" (click)="onDismiss()">Cancel</button>
+  </div>
+</div> -->
+
+<div class="custom-card">
+  <div
+    class="bg-primary m-0"
+    style="margin-bottom: 1rem"
+    fxLayout="row"
+    fxLayoutAlign="start center"
+  >
+    <h3 style="padding: 0.8rem 0.8rem">{{ title }}</h3>
+  </div>
+
+  <div class="p-3">
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>{{ placeholder }}</mat-label>
+        <input
+          value="{{ type }}"
+          [(ngModel)]="type"
+          matInput
+          placeholder="{{ placeholder }}"
+        />
+      </mat-form-field>
+    </div>
+    <mat-divider class="my-2"></mat-divider>
+    <div class="btnDiv">
+      <button
+        mat-raised-button
+        [disabled]="type === ''"
+        color="primary"
+        (click)="onConfirm()"
+      >
+        {{ btn }}
+      </button>
+      <button mat-raised-button color="warn" (click)="onDismiss()">
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- loader -->
+<div
+  *ngIf="loader"
+  fxLayout="column"
+  fxLayoutAlign="center center"
+  class="user-spinner"
+>
+  <mat-spinner color="primary" [diameter]="50"></mat-spinner>
+</div>

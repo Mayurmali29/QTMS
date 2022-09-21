@@ -1,0 +1,74 @@
+<div class="custom-card">
+  <div class="bg-primary" fxLayout="row" fxLayoutAlign="start center">
+    <h3 style="padding: 0.8rem 0.8rem">Test Parameter Master</h3>
+  </div>
+
+  <div class="p-3">
+    <form
+      [formGroup]="testParameter"
+      (ngSubmit)="onSubmit(testParameter.value)"
+    >
+      <div>
+        <!-- Select Type -->
+        <mat-form-field appearance="outline">
+          <mat-label>Select Type</mat-label>
+          <mat-select
+            formControlName="type"
+            name="type"
+            (selectionChange)="typeSelect($event.value)"
+          >
+            <mat-option *ngFor="let x of arr" [value]="x.testType">
+              {{ x.testType }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <!-- Name -->
+
+        <mat-form-field appearance="outline">
+          <mat-label>Name</mat-label>
+          <input formControlName="name" matInput />
+        </mat-form-field>
+
+        <!-- Description -->
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Description</mat-label>
+          <textarea
+            formControlName="description"
+            matInput
+            placeholder="Description"
+          ></textarea>
+        </mat-form-field>
+
+        <!-- Measurement -->
+        <mat-form-field appearance="outline">
+          <mat-label>Select Measurement</mat-label>
+          <mat-select
+            formControlName="measurement"
+            name="measurement"
+            (selectionChange)="measurementSelect($event.value)"
+          >
+            <mat-option *ngFor="let x of measurementArr" [value]="x">
+              {{ x }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <mat-divider class="my-3"></mat-divider>
+
+      <div class="btnDiv">
+        <button
+          type="submit"
+          [disabled]="!testParameter.valid"
+          mat-raised-button
+          color="primary"
+        >
+          {{ btn }}
+        </button>
+        <button mat-raised-button color="warn" (click)="onDismiss()">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

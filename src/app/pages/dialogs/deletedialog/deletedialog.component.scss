@@ -1,0 +1,15 @@
+.btnDiv {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+h3 {
+  font-size: 1rem;
+}
+
+::ng-deep .mat-dialog-container {
+  padding: 0;
+}

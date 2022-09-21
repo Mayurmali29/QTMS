@@ -1,0 +1,39 @@
+.edit {
+  color: yellow;
+}
+
+.id {
+  width: 10%;
+  text-align: center;
+}
+.name {
+  width: 30%;
+}
+.action {
+  width: 30%;
+}
+.active {
+  width: 30%;
+}
+
+th.mat-header-cell,
+td.mat-cell,
+td.mat-footer-cell {
+  text-align: center;
+}
+// th {
+//   text-align: center;
+// }
+th.mat-header-cell {
+  justify-content: center;
+}
+::ng-deep .mat-sort-header-container {
+  justify-content: center;
+}
+
+.hide {
+  display: none;
+}
+::ng-deep .mat-form-field-wrapper {
+  padding: 0;
+}
