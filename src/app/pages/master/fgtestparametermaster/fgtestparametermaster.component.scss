@@ -2,17 +2,72 @@
   padding: 0;
 }
 
-th.mat-header-cell:first-of-type,
-td.mat-cell:first-of-type,
-td.mat-footer-cell:first-of-type {
-  padding-left: 0 !important;
-}
+// th.mat-header-cell:first-of-type,
+// td.mat-cell:first-of-type,
+// td.mat-footer-cell:first-of-type {
+//   padding-left: 0 !important;
+// }
 ::ng-deep .mat-sort-header-content {
-  padding-left: 20px;
+  padding-left: 1rem;
 }
-.type,
-.parameter,
-.action,
+.type {
+  width: 20%;
+}
+.parameter {
+  width: 20%;
+}
+
+.action {
+  width: 20%;
+}
+.criteria {
+  width: 20%;
+}
+
 .value {
-  width: calc(100% / 4);
+  width: 15%;
+  // justify-content: center !important;
+}
+.mat-cell {
+  padding: 0 20px;
+}
+
+.gap {
+  gap: 0.5rem;
+}
+// .mat-sort-header-container:last-child {
+//   justify-content: center;
+//   // padding-left: 6px;
+// }
+td.mat-cell {
+  // text-align: center;
+}
+
+// add new .
+.one {
+  margin-bottom: 1rem;
+}
+.width {
+  width: calc(100% / 5);
+}
+.two {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.paraValue {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@media only screen and (max-width: 600px) {
+  // .two {
+  //   flex-direction: column;
+  // }
+  .width {
+    width: 100%;
+  }
 }

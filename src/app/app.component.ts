@@ -48,9 +48,7 @@ export class AppComponent {
       )
       .subscribe(() => {
         // this.setLoginDisplay();
-        console.log(
-          this.authService.instance.getAllAccounts()[0]
-        );
+        console.log(this.authService.instance.getAllAccounts()[0]);
       });
   }
 

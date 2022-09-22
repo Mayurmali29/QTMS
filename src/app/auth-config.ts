@@ -13,9 +13,13 @@ export const b2cPolicies = {
     signIn: "B2C_1_qtms_signIn",
   },
   authorities: {
+    // signIn: {
+    //   authority:
+    //     "https://zingqtmsb2c.b2clogin.com/zingqtmsb2c.onmicrosoft.com/B2C_1_qtms_signIn",
+    // },
     signIn: {
       authority:
-        "https://zingqtmsb2c.b2clogin.com/zingqtmsb2c.onmicrosoft.com/B2C_1_qtms_signIn",
+        "https://zingqtmsb2c.b2clogin.com/zingqtmsb2c.onmicrosoft.com/B2C_1_zingqtms_signUp_SignIn",
     },
   },
   authorityDomain: "zingqtmsb2c.b2clogin.com",

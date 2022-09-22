@@ -6,127 +6,61 @@
   [class]="'pb-4'"
 ></app-content-header>
 
-<mat-card>
-  <!-- <form>
-    <div fxLayout="row" fxLayoutAlign="start enter" class="one gap">
-      <mat-form-field appearance="outline">
-        <mat-label>Select FG Code</mat-label>
-        <mat-select name="type" (selectionChange)="selectFgType($event.value)">
-          <mat-option *ngFor="let x of arr" [value]="x">
-            {{ x }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Select Test Type</mat-label>
-        <mat-select
-          name="type"
-          (selectionChange)="selectTestType($event.value)"
-        >
-          <mat-option *ngFor="let x of arr" [value]="x">
-            {{ x }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Select Test Parameter</mat-label>
-        <mat-select
-          name="type"
-          (selectionChange)="selectTestType($event.value)"
-        >
-          <mat-option *ngFor="let x of arr" [value]="x">
-            {{ x }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div
-      style="width: 100%"
-      class="gap two"
-      fxLayout="row"
-      fxLayoutAlign="start center"
+<mat-card *ngIf="!toggle">
+  <!-- start -->
+  <div
+    fxLayout="row"
+    fxLayoutAlign="space-between center"
+    style="gap: 2rem; margin-bottom: 0.5rem"
+  >
+    <button
+      mat-raised-button
+      (click)="addtestpara()"
+      class="py-1"
+      color="primary"
     >
-      <div class="paraValue">
-        <div *ngIf="false" class="twoField gap">
-          <mat-form-field style="width: 48%" appearance="outline">
-            <mat-label>Min</mat-label>
-            <input matInput />
-          </mat-form-field>
-          <mat-form-field style="width: 48%" appearance="outline">
-            <mat-label>Max</mat-label>
-            <input matInput />
-          </mat-form-field>
-        </div>
+      Add New
+    </button>
 
-        <div *ngIf="true" class="oneField">
-          <mat-form-field style="width: 100%" appearance="outline">
-            <mat-label>Greater Than Equal</mat-label>
-            <input matInput />
-          </mat-form-field>
-        </div>
-
-        <div style="width: 100%" *ngIf="false" class="boolean">
-          <mat-radio-group class="gap" aria-label="Select an option">
-            <mat-radio-button value="1">Yes</mat-radio-button>
-            <mat-radio-button value="2">NO</mat-radio-button>
-          </mat-radio-group>
-        </div>
-      </div>
-      <div class="unit">
-        <mat-form-field style="width: 100%" appearance="outline">
-          <mat-label>Select Unit </mat-label>
-          <mat-select
-            name="type"
-            (selectionChange)="selectTestType($event.value)"
-          >
-            <mat-option *ngFor="let x of arr" [value]="x">
-              {{ x }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="btn">
-        <button class="btn" type="submit" mat-raised-button color="primary">
-          Add
-        </button>
-      </div>
-    </div>
-  </form> -->
+    <mat-form-field appearance="outline">
+      <mat-label>Search</mat-label>
+      <input matInput (keyup)="applyFilter($event)" #input />
+    </mat-form-field>
+  </div>
 
   <div class="tableDiv my-2">
     <div class="mat-elevation-z8">
       <table class="w-100" mat-table [dataSource]="dataSource" matSort>
         <!-- Test Type Column -->
-        <ng-container class="id" matColumnDef="id">
+        <ng-container class="id" matColumnDef="fgcode">
           <th
             class="type bg-primary"
             mat-header-cell
             *matHeaderCellDef
             mat-sort-header
           >
-            Test Type
+            FG code
           </th>
-          <td mat-cell *matCellDef="let row">{{ row.testType }}</td>
+          <td mat-cell *matCellDef="let row">{{ row.fgcode }}</td>
         </ng-container>
 
         <!-- Test Paarameter Column -->
-        <ng-container matColumnDef="testType">
+        <ng-container matColumnDef="specificCode">
           <th
             class="parameter bg-primary"
             mat-header-cell
             *matHeaderCellDef
             mat-sort-header
           >
-            Test Parameter
+            Specification
           </th>
-          <td mat-cell *matCellDef="let row">{{ row.testType }}</td>
+          <td mat-cell *matCellDef="let row">
+            {{ row.specificCode }}
+          </td>
         </ng-container>
 
-        <!-- Active Column -->
-        <ng-container matColumnDef="active">
+        <!-- Active Column
+        <ng-container matColumnDef="value">
           <th
             class="value bg-primary"
             mat-header-cell
@@ -135,8 +69,10 @@
           >
             Value
           </th>
-          <td mat-cell *matCellDef="let row">{{ row.active }}</td>
-        </ng-container>
+          <td mat-cell *matCellDef="let row">
+            {{ row.value }}
+          </td>
+        </ng-container> -->
 
         <!-- Action Column -->
         <ng-container matColumnDef="action">
@@ -145,6 +81,7 @@
             mat-header-cell
             *matHeaderCellDef
             mat-sort-header
+            style="justify-self: center"
           >
             Action
           </th>
@@ -165,7 +102,7 @@
                 >
               </a>
 
-              <a
+              <!-- <a
                 id="block{{ i }}"
                 class="hide"
                 mat-icon-button
@@ -174,7 +111,7 @@
                 <mat-icon color="primary"
                   ><abbr title="Activate">check_circle</abbr></mat-icon
                 >
-              </a>
+              </a> -->
             </div>
           </td>
         </ng-container>
@@ -187,6 +124,256 @@
             No data matching the filter "{{ input.value }}"
           </td>
         </tr>
+      </table>
+
+      <mat-paginator
+        [pageSizeOptions]="[10, 25, 100]"
+        aria-label="Select page of users"
+      ></mat-paginator>
+    </div>
+  </div>
+</mat-card>
+
+<mat-card *ngIf="toggle">
+  <!-- <app-fgtestparaedit></app-fgtestparaedit> -->
+  <div>
+    <div
+      fxLayout="row "
+      fxLayoutGap="1rem"
+      fxLayoutAlign="space-between center"
+    >
+      <a mat-icon-button (click)="back()">
+        <mat-icon color="primary">arrow_back</mat-icon>
+      </a>
+      <!-- <mat-form-field appearance="outline">
+        <mat-label>Search</mat-label>
+        <input matInput (keyup)="applyFilteradd($event)" #input />
+      </mat-form-field> -->
+    </div>
+
+    <div>
+      <form>
+        <div
+          fxLayout="row wrap"
+          fxLayoutGap="1rem"
+          fxLayoutAlign="center enter"
+          class="one"
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>Select FG Code</mat-label>
+            <mat-select
+              name="type"
+              (selectionChange)="selectFgCode($event.value)"
+            >
+              <mat-option *ngFor="let x of fgCode" [value]="x.fgc">
+                {{ x.fgc }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="two">
+          <mat-form-field class="width" appearance="outline">
+            <mat-label>Select Test Type</mat-label>
+            <mat-select
+              name="typetype"
+              [(ngModel)]="testType"
+              (selectionChange)="selectTestType($event.value)"
+            >
+              <mat-option *ngFor="let x of fgtype" [value]="x.type">
+                {{ x.type }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="width" appearance="outline">
+            <mat-label>Select Test Parameter</mat-label>
+            <mat-select
+              name="type"
+              [(ngModel)]="paraType"
+              (selectionChange)="selectParaType($event.value)"
+            >
+              <mat-option *ngFor="let x of para" [value]="x">
+                {{ x.parameter }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <div class="paraValue">
+            <div
+              *ngIf="minmax"
+              style="display: flex"
+              fxLayoutGap="1rem"
+              class="twoField"
+            >
+              <mat-form-field style="width: 80px" appearance="outline">
+                <mat-label>Min</mat-label>
+                <input matInput name="min" [(ngModel)]="min" />
+              </mat-form-field>
+              <mat-form-field style="width: 80px" appearance="outline">
+                <mat-label>Max</mat-label>
+                <input matInput name="max" [(ngModel)]="max" />
+              </mat-form-field>
+            </div>
+
+            <mat-form-field *ngIf="oneField" appearance="outline">
+              <mat-label>Greater Than Equal</mat-label>
+              <input matInput name="gte" [(ngModel)]="gte" />
+            </mat-form-field>
+
+            <mat-radio-group
+              *ngIf="boolean"
+              class="gap"
+              style="display: flex"
+              aria-label="Select an option"
+            >
+              <mat-radio-button (change)="radioChange($event)" value="yes"
+                >Yes</mat-radio-button
+              >
+              <mat-radio-button (change)="radioChange($event)" value="No"
+                >NO</mat-radio-button
+              >
+            </mat-radio-group>
+          </div>
+
+          <mat-form-field class="width" appearance="outline">
+            <mat-label>Select Unit </mat-label>
+            <mat-select
+              name="type"
+              [(ngModel)]="selUnit"
+              (selectionChange)="selectUnit($event.value)"
+            >
+              <mat-option *ngFor="let x of unitArr" [value]="x.unit">
+                {{ x.unit }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <div class="btn">
+            <button
+              class="btn"
+              (click)="add()"
+              mat-raised-button
+              color="primary"
+            >
+              Add
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="tableDiv my-2">
+    <div class="mat-elevation-z8">
+      <table class="w-100" mat-table [dataSource]="editDataSource" matSort>
+        <!-- Test Type Column -->
+        <ng-container class="id" matColumnDef="testType">
+          <th
+            class="type bg-primary"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+          >
+            Test Type
+          </th>
+          <td mat-cell *matCellDef="let row">{{ row.testType }}</td>
+        </ng-container>
+
+        <!-- Test Parameter Column -->
+        <ng-container matColumnDef="parameter">
+          <th
+            class="parameter bg-primary"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+          >
+            Test Parameter
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <p style="text-align: left">{{ row.parameter }}</p>
+          </td>
+        </ng-container>
+
+        <!-- Test criteria Column -->
+        <ng-container matColumnDef="criteria">
+          <th
+            class="parameter bg-primary"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+          >
+            Measurement Criteria
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <p style="text-align: left">{{ row.criteria }}</p>
+          </td>
+        </ng-container>
+
+        <!-- Active Column -->
+        <ng-container matColumnDef="value">
+          <th
+            class="value bg-primary"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+          >
+            Value
+          </th>
+          <td mat-cell *matCellDef="let row">
+            {{ row.value }}
+          </td>
+        </ng-container>
+
+        <!-- Action Column -->
+        <ng-container matColumnDef="action">
+          <th
+            class="action bg-primary"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            style="justify-self: center"
+          >
+            Action
+          </th>
+          <td mat-cell *matCellDef="let row; let i = index">
+            <div>
+              <a id="edit{{ i }}" mat-icon-button>
+                <mat-icon (click)="updateData(row)" color="primary"
+                  ><abbr title="Edit">edit</abbr></mat-icon
+                >
+              </a>
+              <a
+                id="delete{{ i }}"
+                mat-icon-button
+                (click)="deletetype(row, i)"
+              >
+                <mat-icon color="warn"
+                  ><abbr title="Delete">delete</abbr></mat-icon
+                >
+              </a>
+
+              <!-- <a
+                id="block{{ i }}"
+                class="hide"
+                mat-icon-button
+                (click)="blockmeth(i)"
+              >
+                <mat-icon color="primary"
+                  ><abbr title="Activate">check_circle</abbr></mat-icon
+                >
+              </a> -->
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayed2Columns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayed2Columns"></tr>
+        <!-- Row shown when there is no matching data. -->
+        <!-- <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">
+            No data matching the filter "{{ input.value }}"
+          </td>
+        </tr> -->
       </table>
 
       <mat-paginator

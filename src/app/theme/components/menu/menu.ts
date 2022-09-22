@@ -5,7 +5,7 @@ export const verticalMenuItems = [
   //new Menu (43, 'Login', '/login', null, 'exit_to_app', null, false, 40),
   //new Menu (44, 'Register', '/register', null, 'person_add', null, false, 40),
 
-  new Menu(260, "Dashboard", null, null, "dashboard", null, true, 0),
+  new Menu(260, "Dashboard", "/dashboard", null, "dashboard", null, false, 0),
   // new Menu (261, 'School', '/admin/school', null, 'account_balance', null, false, 260),
   // new Menu (262, 'Course list', '/admin/courselist', null, 'assignment', null, false, 260),
   // new Menu (263, 'Teacher list', '/admin/teacherlist', null, 'person', null, false, 260),

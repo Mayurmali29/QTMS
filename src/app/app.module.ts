@@ -48,6 +48,7 @@ import { DeletedialogComponent } from "./pages/dialogs/deletedialog/deletedialog
 //material
 import { MatButtonModule } from "@angular/material/button";
 import { TestparametermasterdialogComponent } from "./pages/dialogs/testparametermasterdialog/testparametermasterdialog.component";
+import { DashboradComponent } from './pages/dashborad/dashborad.component';
 
 @NgModule({
   imports: [
@@ -95,6 +96,7 @@ import { TestparametermasterdialogComponent } from "./pages/dialogs/testparamete
     AdddialogComponent,
     DeletedialogComponent,
     TestparametermasterdialogComponent,
+    DashboradComponent,
   ],
   providers: [
     AppSettings,

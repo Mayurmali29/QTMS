@@ -11,6 +11,7 @@ import { FgmasterComponent } from "./fgmaster/fgmaster.component";
 import { FgtestparametermasterComponent } from "./fgtestparametermaster/fgtestparametermaster.component";
 import { FgtesttransactionComponent } from "./fgtesttransaction/fgtesttransaction.component";
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { FgtestparaeditComponent } from './fgtestparaedit/fgtestparaedit.component';
 export const routes: Routes = [
   // { path: '', redirectTo: 'school', pathMatch: 'full'},
   {
@@ -67,6 +68,7 @@ export const routes: Routes = [
     FgmasterComponent,
     FgtestparametermasterComponent,
     FgtesttransactionComponent,
+    FgtestparaeditComponent,
   ],
 })
 export class MasterModule {}

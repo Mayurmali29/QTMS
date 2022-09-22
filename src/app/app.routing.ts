@@ -1,6 +1,7 @@
 import { Component, NgModule } from "@angular/core";
 import { Routes, RouterModule, PreloadAllModules } from "@angular/router";
 import { MsalGuard } from "@azure/msal-angular";
+import { DashboradComponent } from "./pages/dashborad/dashborad.component";
 
 import { PagesComponent } from "./pages/pages.component";
 
@@ -12,7 +13,11 @@ export const routes: Routes = [
     component: PagesComponent,
     canActivate: [MsalGuard],
     children: [
-      // { path: 'admin', loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminModule), data: { breadcrumb: 'Admin' } },
+      {
+        path: "dashboard",
+        canActivate: [MsalGuard],
+        component: DashboradComponent,
+      },
       {
         path: "master",
         canActivate: [MsalGuard],

@@ -1,0 +1,96 @@
+<div style="margin-bottom: 0.5rem">
+  <a mat-icon-button (click)="backToCourse()">
+    <mat-icon color="primary">arrow_back</mat-icon>
+  </a>
+</div>
+
+<div>
+  <form>
+    <div fxLayout="row" fxLayoutAlign="start enter" class="one gap">
+      <mat-form-field appearance="outline">
+        <mat-label>Select FG Code</mat-label>
+        <mat-select name="type" (selectionChange)="selectFgType($event.value)">
+          <mat-option *ngFor="let x of arr" [value]="x">
+            {{ x }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Select Test Type</mat-label>
+        <mat-select
+          name="type"
+          (selectionChange)="selectTestType($event.value)"
+        >
+          <mat-option *ngFor="let x of arr" [value]="x">
+            {{ x }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Select Test Parameter</mat-label>
+        <mat-select
+          name="type"
+          (selectionChange)="selectTestType($event.value)"
+        >
+          <mat-option *ngFor="let x of arr" [value]="x">
+            {{ x }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div
+      style="width: 100%"
+      class="gap two"
+      fxLayout="row"
+      fxLayoutAlign="start center"
+    >
+      <div class="paraValue">
+        <div *ngIf="false" class="twoField gap">
+          <mat-form-field style="width: 48%" appearance="outline">
+            <mat-label>Min</mat-label>
+            <input matInput />
+          </mat-form-field>
+          <mat-form-field style="width: 48%" appearance="outline">
+            <mat-label>Max</mat-label>
+            <input matInput />
+          </mat-form-field>
+        </div>
+
+        <div *ngIf="true" class="oneField">
+          <mat-form-field style="width: 100%" appearance="outline">
+            <mat-label>Greater Than Equal</mat-label>
+            <input matInput />
+          </mat-form-field>
+        </div>
+
+        <div style="width: 100%" *ngIf="false" class="boolean">
+          <mat-radio-group class="gap" aria-label="Select an option">
+            <mat-radio-button value="1">Yes</mat-radio-button>
+            <mat-radio-button value="2">NO</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+      <div class="unit">
+        <mat-form-field style="width: 100%" appearance="outline">
+          <mat-label>Select Unit </mat-label>
+          <mat-select
+            name="type"
+            (selectionChange)="selectTestType($event.value)"
+          >
+            <mat-option *ngFor="let x of arr" [value]="x">
+              {{ x }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="btn">
+        <button class="btn" type="submit" mat-raised-button color="primary">
+          Add
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
